@@ -55,6 +55,7 @@ def login_user(request):
             token, created = Token.objects.get_or_create(user=account)
             data['account'] = RegistrationSerializer(account).data
             data['token'] = token.key
+            data['response'] = f'login successful. welcome {account.username}'
             status_code = status.HTTP_200_OK
             return Response(data,status = status_code)
 
