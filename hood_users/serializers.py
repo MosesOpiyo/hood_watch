@@ -42,3 +42,8 @@ class LoginSerializer(serializers.Serializer):
             return account
         else:
             raise serializers.ValidationError({'account':'The account credentials are incorrect'})
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['id','email','username','date_joined','last_login',]
