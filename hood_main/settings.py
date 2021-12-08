@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'cloudinary'
-    'hood_users.apps.HoodUsersConfig'
+    'hood_users.apps.HoodUsersConfig',
+    'hood_app.apps.HoodAppConfig'
 ]
 
 MIDDLEWARE = [
