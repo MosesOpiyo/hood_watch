@@ -20,4 +20,5 @@ from django.urls.conf import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('hood_users.urls')),
+    path('hood/',include('hood_app.urls')),
 ]
