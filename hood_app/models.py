@@ -11,15 +11,15 @@ from hood_users.models import Account
 class Hood(models.Model):
     name = models.CharField(max_length=100,unique=True)
     location = models.CharField(max_length=200)
-    admin = models.ForeignKey(Account,on_delete=SET_NULL)
-    police_line = models.IntegerField(max_length=10)
-    emergency_line = models.IntegerField(max_length=10)
+    admin = models.ForeignKey(Account,on_delete=SET_NULL,null=True)
+    police_line = models.IntegerField()
+    emergency_line = models.IntegerField()
 
 class Occurence(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
-    reporter = models.ForeignKey(Account,on_delete=SET_NULL)
-    hood = models.ForeignKey(Account,on_delete=CASCADE)
+    reporter = models.ForeignKey(Account,on_delete=SET_NULL,related_name='events_reporter',null=True)
+    hood = models.ForeignKey(Account,on_delete=CASCADE,related_name='reported_events')
     time_reported = models.TimeField(auto_now_add=True)
 
     def get_events(pk):
@@ -75,7 +75,7 @@ class Business(models.Model):
 class Profile(models.Model):
     profile_pic = CloudinaryField(blank=True)
     user = OneToOneField(Account,on_delete=CASCADE,null=False)
-    hood = models.ForeignKey(Hood,on_delete=SET_NULL)
+    hood = models.ForeignKey(Hood,on_delete=SET_NULL,related_name='user',null=True)
     
     def get_residents(pk):
         """
@@ -94,6 +94,6 @@ class Profile(models.Model):
         if created:
             Profile.objects.create(user=instance)
 
-    @receiver(post_save, sender=Account)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
+    # @receiver(post_save, sender=Account)
+    # def save_user_profile(sender, instance, **kwargs):
+    #     instance.profile.save()
