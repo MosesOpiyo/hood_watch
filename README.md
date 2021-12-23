@@ -6,7 +6,7 @@ This is a project that allows residents in a neighbourhood to have eyes and ears
 The project is a two part project consisting of a frontend and backend made in angular and django respectively.
 
 ## Link to Frontend
-For front end referencing, use the link
+For front end referencing, use the link below:
 
 https://github.com/MosesOpiyo/hood_watch_frontend
 
