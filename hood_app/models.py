@@ -32,10 +32,14 @@ class Occurence(models.Model):
 
         return events
 
+class Services(models.Model):
+    name = models.CharField(max_length=500)
+    description = models.TextField()
+
 class Business(models.Model):
     name = models.CharField(max_length=200)
     owner = models.ForeignKey(Account,on_delete=CASCADE)
-    services = models.TextField()
+    services = models.ForeignKey(Services,on_delete=SET_NULL,null=True)
 
     def delete_business(self):
         self.delete()
