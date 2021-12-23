@@ -11,7 +11,7 @@ class HoodSerializer(serializers.ModelSerializer):
     
     def save(self,request):
         profile = Profile.objects.get(user = request.user)
-        hood = Hood(name=self.validated_data['name'],loation=self.validated_data['location'],admin = request.user,police_line=self.validated_data['police_line'],emergency_line=self.validated_data['emergency_line'])
+        hood = Hood(name=self.validated_data['name'],location=self.validated_data['location'],admin = request.user,police_line=self.validated_data['police_line'],emergency_line=self.validated_data['emergency_line'])
         hood.save()
         profile.hood = hood
         profile.save()
@@ -55,7 +55,7 @@ class OccurrenceSerializer(serializers.ModelSerializer):
         read_only_fields = ['neighbourhood']
 
     def save(self,request,neighbourhood):
-        occurence = Occurence(type = self.validated_data['type'],neighbourhood = neighbourhood,reporter = request.user, name = self.validated_data['name'],description = self.validated_data['description'],image_description = self.validated_data['image_description'])
+        occurence = Occurence(neighbourhood = neighbourhood,reporter = request.user, name = self.validated_data['name'],description = self.validated_data['description'])
         occurence.save()
 
 class ProfileSerializer(serializers.ModelSerializer):
