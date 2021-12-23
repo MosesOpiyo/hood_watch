@@ -5,6 +5,11 @@
 This is a project that allows residents in a neighbourhood to have eyes and ears so to speak of everything occurence around the neighbourhood.
 The project is a two part project consisting of a frontend and backend made in angular and django respectively.
 
+## Link to Frontend
+For front end referencing, use the link below:
+
+https://github.com/MosesOpiyo/hood_watch_frontend
+
 ## Setup
 The following are steps to take when setting up the project in your local machine.
 1. Git clone 
