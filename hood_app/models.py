@@ -11,9 +11,9 @@ from hood_users.models import Account
 class Hood(models.Model):
     name = models.CharField(max_length=100,unique=True)
     location = models.CharField(max_length=200)
-    admin = models.ForeignKey(Account,on_delete=SET_NULL,null=True)
-    police_line = models.IntegerField()
-    emergency_line = models.IntegerField()
+    admin = models.OneToOneField(Account,on_delete=SET_NULL,null=True)
+    police_line = models.CharField(max_length=10)
+    emergency_line = models.CharField(max_length=10)
 
 class Occurence(models.Model):
     name = models.CharField(max_length=200)

@@ -3,7 +3,7 @@ from django.urls import path
 from hood_app import views 
 
 urlpatterns = [
-    path('',views.hood_view,name='neighbourhoods'),
+    path('hoods',views.hood_view,name='neighbourhoods'),
     path('join_hood/',views.join_hood,name='join_hood'),
     path('my_hood/',views.get_hood,name='my_hood'),
     path('my_hood/<int:pk>',views.get_residents,name='get_residents'),
