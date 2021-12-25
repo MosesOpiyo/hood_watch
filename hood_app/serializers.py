@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Hood,Business,Occurence,Profile
+from .models import Hood,Business,Occurence,Profile, Services
 from hood_users.serializers import UserSerializer
 
 class HoodSerializer(serializers.ModelSerializer):
@@ -39,9 +39,21 @@ class BusinessSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def save(self,request):
-        business = Business(owner = request.user,name = self.validated_data['name'],services = self.validated_data['services'],image = self.validated_data['image'])
+        business = Business(owner = request.user,name = self.validated_data['name'])
 
         business.save()
+
+class ServiceSerializer(serializers.Serializer):
+    """This deals with parsing the services
+    Args:
+        serializers ([type]): [description]
+    """
+    class Meta:
+        model = Services
+        fields = '__all__'
+
+    def save(self):
+        services = Services(name = self.validated_data['service'],description = self.validated_data['description'])
 
 class OccurrenceSerializer(serializers.ModelSerializer):
     """This deals with parsing the occurences
