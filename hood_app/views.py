@@ -44,7 +44,7 @@ def join_hood(request,pk):
     hood = Hood.objects.get(pk=pk)
     profile.hood = hood
     profile.save()
-    data['success'] = f"Welcome to {hood.name} neighbourhood.Your neighbours are waiting."
+    data['success'] = f"Welcome to {hood.name}."
     return Response(data,status = status.HTTP_200_OK)
 
 @api_view(['POST'])
