@@ -9,7 +9,7 @@ from hood_users.models import Account
 
 # Create your models here.
 class Hood(models.Model):
-    name = models.CharField(max_length=100,unique=True)
+    name = models.CharField(max_length=100)
     location = models.CharField(max_length=200)
     admin = models.OneToOneField(Account,on_delete=SET_NULL,null=True)
     police_line = models.CharField(max_length=10)
