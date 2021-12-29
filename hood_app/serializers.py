@@ -64,10 +64,10 @@ class OccurrenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Occurence
         fields = '__all__'
-        read_only_fields = ['neighbourhood']
+        read_only_fields = ['hood']
 
-    def save(self,request,neighbourhood):
-        occurence = Occurence(neighbourhood = neighbourhood,reporter = request.user, name = self.validated_data['name'],description = self.validated_data['description'])
+    def save(self,request,hood):
+        occurence = Occurence(hood = hood,reporter = request.user, name = self.validated_data['name'],description = self.validated_data['description'])
         occurence.save()
 
 class ProfileSerializer(serializers.ModelSerializer):

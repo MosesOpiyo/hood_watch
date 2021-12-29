@@ -1,3 +1,4 @@
+from typing import Set
 from rest_framework.decorators import APIView,api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -39,12 +40,13 @@ def hood_view(request):
 @permission_classes([IsAuthenticated])
 def join_hood(request,pk):
     data = {}
+   
 
     profile = Profile.objects.get(user = request.user)
-    hood = Hood.objects.get(pk=pk)
-    profile.hood = hood
+    new_hood = Hood.objects.get(pk=pk)
+    profile.hood = new_hood
     profile.save()
-    data['success'] = f"Welcome to {hood.name}."
+    data['success'] = f"Welcome to  {new_hood.name}."
     return Response(data,status = status.HTTP_200_OK)
 
 @api_view(['POST'])
@@ -53,7 +55,7 @@ def move_out(request,pk):
     data = {}
     profile = Profile.objects.get(user = request.user)
     hood = Hood.objects.get(pk=pk)
-    profile.neighbourhood = None
+    profile.hood = None
     profile.save()
     data['success'] = f"You are no longer a member of the {hood.name} neighbourhood."
     return Response(data,status = status.HTTP_200_OK)
@@ -87,21 +89,35 @@ def business_view(request):
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
-def occurence_view(request):
+def occurence_view(request,pk):
     data = {}
+    
+    try:
+        hood = Hood.objects.get(pk=pk)
+    except :
 
-    if request.method == 'GET':
-        occurences = Occurence.objects.all()
+        data['not found'] = "The neighbourhood was not found"
+        return Response(data,status = status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'POST':
+        serializer = OccurrenceSerializer(data = request.data)
+
+        if serializer.is_valid():
+            serializer.save(request,hood)
+            data['success'] = "The occurrence was successfully reported"
+            return Response(data,status = status.HTTP_200_OK)
+
+        else:
+            data = serializer.errors
+            print(data)
+            return Response(data,status = status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'GET':
+        occurences = Occurence.get_events(pk)
         data = OccurrenceSerializer(occurences,many=True).data
 
-        return Response(data,status=status.HTTP_200_OK)
+        return Response(data,status= status.HTTP_200_OK)
 
-    elif request.method == 'POST':
-        serializer = OccurrenceSerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save(request)
-            data['success'] = "Occurence acknowledged."
-            return Response(data,status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

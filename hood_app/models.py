@@ -16,10 +16,10 @@ class Hood(models.Model):
     emergency_line = models.CharField(max_length=10)
 
 class Occurence(models.Model):
-    name = models.CharField(max_length=200)
-    description = models.TextField()
+    name = models.CharField(max_length=3000)
+    description = models.TextField(null=True)
     reporter = models.ForeignKey(Account,on_delete=SET_NULL,related_name='events_reporter',null=True)
-    hood = models.ForeignKey(Account,on_delete=CASCADE,related_name='reported_events')
+    hood = models.ForeignKey(Hood,on_delete=CASCADE,related_name='reported_events')
     time_reported = models.TimeField(auto_now_add=True)
 
     def get_events(pk):
@@ -77,7 +77,7 @@ class Business(models.Model):
         return results
     
 class Profile(models.Model):
-    profile_pic = CloudinaryField(blank=True)
+    
     user = OneToOneField(Account,on_delete=CASCADE,null=False)
     hood = models.ForeignKey(Hood,on_delete=SET_NULL,related_name='user',null=True)
     
@@ -93,11 +93,13 @@ class Profile(models.Model):
         users = Account.objects.filter(profile__hood = hood)
         return users
 
-    @receiver(post_save, sender=Account)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
+    # @receiver(post_save, sender=Account)
+    # def create_user_profile(sender, instance, created, **kwargs):
+    #     if created:
+    #         Profile.objects.create(user=instance)
 
     # @receiver(post_save, sender=Account)
-    # def save_user_profile(sender, instance, **kwargs):
-    #     instance.profile.save()
+    # def save_user_profile(sender, instance,created, **kwargs):
+    #     if created:
+    #         Profile.objects.create(user=instance)
+    #     instance.Profile.save()
