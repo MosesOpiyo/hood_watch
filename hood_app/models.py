@@ -77,13 +77,18 @@ class Business(models.Model):
         return results
     
 class Profile(models.Model):
-    
-    user = OneToOneField(Account,on_delete=CASCADE,null=False)
-    hood = models.ForeignKey(Hood,on_delete=SET_NULL,related_name='user',null=True)
-    
+    """This extends the user model and provides an interface to connect to the neighbourhood class
+    Args:
+        models ([type]): [description]
+    """
+    user = models.OneToOneField(Account,null=False,related_name="profile",on_delete=models.CASCADE,)
+    hood = models.ForeignKey(Hood,null=True,blank=True,on_delete=models.SET_NULL,related_name="user")
+
+    def __str__(self):
+        return self.user.username + "'s " + "profile"
+
     def get_residents(pk):
-        """
-        This will return all users in a given neighbourhood
+        """This will return all users in a given neighbourhood
         Args:
             pk ([type]): [description]
         Returns:
@@ -91,15 +96,14 @@ class Profile(models.Model):
         """
         hood = Hood.objects.get(pk=pk)
         users = Account.objects.filter(profile__hood = hood)
+
         return users
 
-    # @receiver(post_save, sender=Account)
-    # def create_user_profile(sender, instance, created, **kwargs):
-    #     if created:
-    #         Profile.objects.create(user=instance)
+    @receiver(post_save, sender=Account)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
 
-    # @receiver(post_save, sender=Account)
-    # def save_user_profile(sender, instance,created, **kwargs):
-    #     if created:
-    #         Profile.objects.create(user=instance)
-    #     instance.Profile.save()
+    @receiver(post_save, sender=Account)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()

@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken import views
 import json
 
-from .serializers import RegistrationSerializer,LoginSerializer
+from .serializers import RegistrationSerializer
 from .models import Account
 
 @api_view(['POST'])
@@ -16,11 +16,10 @@ def registration_view(request):
     if serializer.is_valid():
         account = serializer.save()
         data['response'] = f"Successfully created a new user under {account.username}"
-        token, created = Token.objects.get_or_create(user=account)
-        data['token'] = token.key
+        return Response(data,status = status.HTTP_201_CREATED)
     else:
         data = serializer.errors
-    return Response(data)
+    
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
@@ -40,29 +39,3 @@ def delete_user(request,pk):
         data['response'] = "You are not authorized to do that."
         return Response(data,status = status.HTTP_401_UNAUTHORIZED)
 
-@api_view(['POST'])
-def login_user(request):
-    """[summary]
-    Args:
-        request ([type]): [description]
-    """
-    serializer = LoginSerializer(data=request.data)
-    data = {}
-    
-    if serializer.is_valid():
-        try:
-            account = serializer.validate_account()
-            token, created = Token.objects.get_or_create(user=account)
-            data['account'] = RegistrationSerializer(account).data
-            data['token'] = token.key
-            data['response'] = f'login successful. welcome {account.username}'
-            status_code = status.HTTP_200_OK
-            return Response(data,status = status_code)
-
-        except:
-            data['response'] = "The account credentials were wrong!"
-            status_code = status.HTTP_404_NOT_FOUND
-            return Response(data,status = status_code)
-    else:
-        data['response'] = serializer.errors
-        return Response(data,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
