@@ -53,7 +53,7 @@ class ServiceSerializer(serializers.Serializer):
         fields = '__all__'
 
     def save(self):
-        services = Services(name = self.validated_data['service'],description = self.validated_data['description'])
+        services = Services(name = self.validated_data['service'],description = self.validated_data['service_description'])
 
 class OccurrenceSerializer(serializers.ModelSerializer):
     """This deals with parsing the occurences
