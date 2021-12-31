@@ -1,1 +1,1 @@
-web: gunicorn NH_watch.wsgi --log-file -
+web: gunicorn hood_app.wsgi --log-file -
