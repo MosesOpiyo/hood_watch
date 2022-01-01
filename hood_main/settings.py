@@ -134,6 +134,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+cloudinary.config(
+    cloud_name='dlzyg12i7',
+    api_key='755948595873632',
+    api_secret='SXz0A7wV1NkRoDpmLN0wFi5PcRM',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

@@ -95,7 +95,7 @@ class Profile(models.Model):
             [type]: [description]
         """
         hood = Hood.objects.get(pk=pk)
-        users = Account.objects.filter(profile__hood = hood)
+        users = Account.objects.filter(profile_hood = hood)
 
         return users
 

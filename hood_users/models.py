@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
 from django.conf import settings
@@ -54,7 +55,7 @@ class Account(PermissionsMixin,AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    profile_pic = models.ImageField(null=True,blank=True)
+    profile_pic =CloudinaryField(null=True,blank=True)
 
     objects = MyAccountManager()
 

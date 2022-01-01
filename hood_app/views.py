@@ -40,7 +40,6 @@ def hood_view(request):
 @permission_classes([IsAuthenticated])
 def join_hood(request,pk):
     data = {}
-   
 
     profile = Profile.objects.get(user = request.user)
     new_hood = Hood.objects.get(pk=pk)
@@ -51,13 +50,12 @@ def join_hood(request,pk):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def move_out(request,pk):
+def move_out(request):
     data = {}
     profile = Profile.objects.get(user = request.user)
-    hood = Hood.objects.get(pk=pk)
     profile.hood = None
     profile.save()
-    data['success'] = f"You are no longer a member of the {hood.name} neighbourhood."
+    data['success'] = "You are no longer a member of the neighbourhood!"
     return Response(data,status = status.HTTP_200_OK)
 
 @api_view(['GET'])
