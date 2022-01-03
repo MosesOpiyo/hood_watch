@@ -10,15 +10,15 @@ For front end referencing, use the link below:
 
 https://github.com/MosesOpiyo/hood_watch_frontend
 
-##Local Setup
+## Local Setup
 
-1) Angular
+# Angular
 1. Create a directory to house the entire application and from here on I will refer to it as dir1 for reference purposes.
 2. While inside dir1 run the following code git clone https://github.com/MosesOpiyo/hood_watch_frontend.git
 3. Then navigate to that file TUZO and run npm install to install all the requirements.
 4. Finally run ng serve -o to run the local server.
 
-2) Django
+# Django
 1. Navigate to dir1 and create another empty directory to house the backed bit.
 2. Inside this directory run git clone https://github.com/Ken-mbira/Tuzo.git and navigate into the directory TUZO
 3. Create a virtual environment inside this repository python3 -m venv --without-pip virtual and activate it using source virtual/bin/activate.
