@@ -20,7 +20,7 @@ https://github.com/MosesOpiyo/hood_watch_frontend
 
 # Django
 1. Navigate to dir1 and create another empty directory to house the backed bit.
-2. Inside this directory run git clone https://github.com/Ken-mbira/Tuzo.git and navigate into the directory TUZO
+2. Inside this directory run git clone https://github.com/MosesOpiyo/hood_watch.git and navigate into the directory TUZO
 3. Create a virtual environment inside this repository python3 -m venv --without-pip virtual and activate it using source virtual/bin/activate.
 4. Run pip instal -r requirements.txt
 5. Finally run python3 manage.py runserver
