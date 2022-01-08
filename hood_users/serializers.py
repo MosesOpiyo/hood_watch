@@ -29,7 +29,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['id','email','username','date_joined','last_login','profile_pic']
+        fields = ['id','email','username','date_joined','last_login']
+
+class PicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['profile_pic']
 
     def save(self):
         profile_pic = Account(profile_pic = self.validated_data['profile_pic'])

@@ -47,6 +47,7 @@ class Account(PermissionsMixin,AbstractBaseUser):
     Args:
         AbstractBaseUser ([type]): [description]
     """
+    profile_pic =CloudinaryField(null=True,blank=True)
     email = models.EmailField(verbose_name="email",max_length=100,unique=True)
     username = models.CharField(max_length=100,unique=True)
     date_joined = models.DateTimeField(verbose_name="date joined",auto_now_add=True)
@@ -55,7 +56,7 @@ class Account(PermissionsMixin,AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    profile_pic =CloudinaryField(null=True,blank=True)
+   
 
     objects = MyAccountManager()
 

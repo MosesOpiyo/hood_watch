@@ -11,6 +11,7 @@ from .serializers import *
 from hood_users.serializers import *
 from .models import *
 
+
 import json
 # Create your views here.
 
@@ -161,11 +162,14 @@ def search_business(request,term):
     return Response(data,status=status.HTTP_200_OK)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
 def profile_pic(request):
     data = {}
-    serializer = ProfileSerializer(data = request.data)
-    if serializer.is_valid():
+    if request.method == 'POST':
+     serializer = PicSerializer(data = request.data)
+     if serializer.is_valid():
         data['success'] = "Profile pic successfully changed."
         return Response(data,status=status.HTTP_201_CREATED)
-
+    if request.method == 'GET':
+        profile = Profile.objects.get(user =request.user)
+        data['profile_pic'] = ProfileSerializer(profile).data
+    return Response(data,status = status.HTTP_200_OK)

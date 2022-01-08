@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken import views
 import json
 
+from hood_app import serializers
+
 from .serializers import RegistrationSerializer
 from .models import Account
 
