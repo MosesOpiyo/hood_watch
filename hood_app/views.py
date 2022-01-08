@@ -83,6 +83,7 @@ def business_view(request):
         if serializer.is_valid():
             serializer.save(request)
             data['success'] = "New business successfully created."
+            print(data)
             return Response(data,status=status.HTTP_201_CREATED)
 
 @api_view(['GET','POST'])
@@ -159,4 +160,12 @@ def search_business(request,term):
     data['businesses'] = BusinessSerializer(results,many=True).data
     return Response(data,status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def profile_pic(request):
+    data = {}
+    serializer = ProfileSerializer(data = request.data)
+    if serializer.is_valid():
+        data['success'] = "Profile pic successfully changed."
+        return Response(data,status=status.HTTP_201_CREATED)
 

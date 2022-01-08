@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
+from hood_app.models import Profile
+
 from .models import Account
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -27,4 +29,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['id','email','username','date_joined','last_login',]
+        fields = ['id','email','username','date_joined','last_login','profile_pic']
+
+    def save(self):
+        profile_pic = Account(profile_pic = self.validated_data['profile_pic'])
+        profile_pic.save()
+        return profile_pic

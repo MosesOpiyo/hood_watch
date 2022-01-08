@@ -81,6 +81,7 @@ class Profile(models.Model):
     Args:
         models ([type]): [description]
     """
+    profile_pic =CloudinaryField(null=True,blank=True)
     user = models.OneToOneField(Account,null=False,related_name="profile",on_delete=models.CASCADE,)
     hood = models.ForeignKey(Hood,null=True,blank=True,on_delete=models.SET_NULL,related_name="user")
 
@@ -95,7 +96,7 @@ class Profile(models.Model):
             [type]: [description]
         """
         hood = Hood.objects.get(pk=pk)
-        users = Account.objects.filter(profile_hood = hood)
+        users = Account.objects.filter(profile__hood = hood)
 
         return users
 

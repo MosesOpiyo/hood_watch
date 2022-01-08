@@ -12,4 +12,5 @@ urlpatterns = [
     path('business/<int:pk>',views.get_businesses,name='get_business'),
     path('search/<str:term>',views.search_business,name='search_business'),
     path('occurence/<int:pk>',views.occurence_view,name="occurence"),
+    path('profile_pic',views.profile_pic,name='profile_pic')
 ]

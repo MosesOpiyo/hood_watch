@@ -54,6 +54,7 @@ class ServiceSerializer(serializers.Serializer):
 
     def save(self):
         services = Services(name = self.validated_data['service'],description = self.validated_data['service_description'])
+        services.save()
 
 class OccurrenceSerializer(serializers.ModelSerializer):
     """This deals with parsing the occurences
@@ -76,3 +77,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
+
+    def save(self):
+        profile_pic = Profile(profile_pic = self.validated_data['profile_pic'])
+        profile_pic.save()
+        return profile_pic
