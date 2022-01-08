@@ -25,6 +25,9 @@ https://github.com/MosesOpiyo/hood_watch_frontend
 4. Run pip instal -r requirements.txt
 5. Finally run python3 manage.py runserver
 
+## Issues with the project
+Having issues with setting up the profile picture of a profile.Any help would be highly appreciated.
+
 ## Dependacies
 * asgiref==3.4.1
 * certifi==2021.10.8
